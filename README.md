@@ -21,6 +21,14 @@ Usage
 Ex:
 `pdfc -o out.pdf in.pdf`
 
+Output:
+```
+Compress PDF...
+Compression by 65%.
+Final file size is 1.4MB
+Done.
+```
+
 Options
 -------
 * `-c` or `--compress` specifies 5 levels of compression, similar to standard pdf generator level:
