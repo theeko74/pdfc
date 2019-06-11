@@ -68,6 +68,7 @@ def main():
     parser.add_argument('input', help='Relative or absolute path of the input PDF file')
     parser.add_argument('-o', '--out', help='Relative or absolute path of the output PDF file')
     parser.add_argument('-c', '--compress', type=int, help='Compression level from 0 to 4')
+    parser.add_argument('-b', '--backup', action='store_true', help="Backup the old PDF file")
     parser.add_argument('--open', action='store_true', default=False,
                         help='Open PDF after compression')
     args = parser.parse_args()
@@ -84,12 +85,17 @@ def main():
 
     # In case no output file is specified, erase original file
     if args.out == 'temp.pdf':
+        if args.backup:
+            copyfile(args.input, args.input.replace(".pdf", "_BACKUP.pdf"))
         copyfile(args.out, args.input)
         os.remove(args.out)
 
     # In case we want to open the file after compression
     if args.open:
-        subprocess.call(['open', args.out])
+        if args.out == 'temp.pdf' and args.backup:
+            subprocess.call(['open', args.input])
+        else:
+            subprocess.call(['open', args.out])
 
 if __name__ == '__main__':
     main()
