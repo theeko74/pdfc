@@ -38,3 +38,4 @@ Options
   * 3: ebook
   * 4: screen
 * `-o`or `--out` specifies the output file path. If not specified, input file will be erased.
+* `-b`or `--backup` creates a backup of the original file in case no output is specified to avoid erasing the original file. 
