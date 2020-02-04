@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Author: Sylvain Carlioz
+# Author: skjerns
 # 6/03/2017
 # MIT license -- free to use as you want, cheers.
 
@@ -21,8 +22,7 @@ import argparse
 import subprocess
 import os.path
 import sys
-from shutil import copyfile
-
+import shutil
 
 def compress(input_file_path, output_file_path, power=0):
     """Function to compress PDF via Ghostscript command line interface"""
@@ -45,9 +45,10 @@ def compress(input_file_path, output_file_path, power=0):
         print("Error: input file is not a PDF")
         sys.exit(1)
 
+    gs = get_ghostscript_path()
     print("Compress PDF...")
     initial_size = os.path.getsize(input_file_path)
-    subprocess.call(['gs', '-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.4',
+    subprocess.call([gs, '-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.4',
                     '-dPDFSETTINGS={}'.format(quality[power]),
                     '-dNOPAUSE', '-dQUIET', '-dBATCH',
                     '-sOutputFile={}'.format(output_file_path),
@@ -59,6 +60,14 @@ def compress(input_file_path, output_file_path, power=0):
     print("Final file size is {0:.1f}MB".format(final_size / 1000000))
     print("Done.")
 
+
+def get_ghostscript_path():
+    gs_names = ['gs', 'gswin32', 'gswin64']
+    for name in gs_names:
+        if shutil.which(name):
+            return shutil.which(name)
+    raise FileNotFoundError(f'No GhostScript executable was found on path ({"/".join(gs_names)})')
+    
 
 def main():
     parser = argparse.ArgumentParser(
@@ -86,8 +95,8 @@ def main():
     # In case no output file is specified, erase original file
     if args.out == 'temp.pdf':
         if args.backup:
-            copyfile(args.input, args.input.replace(".pdf", "_BACKUP.pdf"))
-        copyfile(args.out, args.input)
+            shutil.copyfile(args.input, args.input.replace(".pdf", "_BACKUP.pdf"))
+        shutil.copyfile(args.out, args.input)
         os.remove(args.out)
 
     # In case we want to open the file after compression
