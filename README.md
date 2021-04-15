@@ -4,7 +4,7 @@ Pdfc --  PDF Compressor
 Simple python script to compress PDF.
 
 Installation
--------------
+---- 
 * Install dependency Ghostscript.
 On MacOSX: `brew install ghostscript`
 On Windows: install binaries via [official website] (https://www.ghostscript.com/)
@@ -14,23 +14,25 @@ On Windows: install binaries via [official website] (https://www.ghostscript.com
 On MacOSX:
 `echo export=/absolute/path/of/the/folder/script/:$PATH >> ~/.bash_profile`
 
+Or with ZSH 
+`echo path+=absolute/path/of/the/folder/script/ >> ~/.zshrc`
+
 Usage
------
+---- 
 `pdfc [-o output_file_path] [-c number] input_file_path`
 
 Ex:
 `pdfc -o out.pdf in.pdf`
 
 Output:
-```
-Compress PDF...
-Compression by 65%.
-Final file size is 1.4MB
-Done.
-```
+	Compress PDF...
+	Compression by 65%.
+	Final file size is 1.4MB
+	Done.
 
+When compression did not work, the file is skipped.
 Options
--------
+---- 
 * `-c` or `--compress` specifies 5 levels of compression, similar to standard pdf generator level:
   * 0: default
   * 1: prepress
