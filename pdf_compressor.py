@@ -96,7 +96,7 @@ def main():
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument('input', help='Relative or absolute path of the input PDF file')
+    parser.add_argument('input', help='Relative or absolute path of the input PDF file or directory')
     parser.add_argument('-o', '--out', help='Relative or absolute path of the output PDF file')
     parser.add_argument('-c', '--compress', type=int, help='Compression level from 0 to 4')
     parser.add_argument('-b', '--backup', action='store_true', help="Backup the old PDF file")
