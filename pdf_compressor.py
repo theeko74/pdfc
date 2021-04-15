@@ -24,7 +24,7 @@ import sys
 from shutil import copyfile
 
 
-def compress(input_file_path, output_file_path, power=0):
+def compress(input_file_path, output_file_path, backup, power=0):
     """Function to compress PDF via Ghostscript command line interface"""
     quality = {
         0: '/default',
@@ -46,19 +46,50 @@ def compress(input_file_path, output_file_path, power=0):
         sys.exit(1)
 
     print("Compress PDF...")
-    initial_size = os.path.getsize(input_file_path)
     subprocess.call(['gs', '-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.4',
                     '-dPDFSETTINGS={}'.format(quality[power]),
                     '-dNOPAUSE', '-dQUIET', '-dBATCH',
                     '-sOutputFile={}'.format(output_file_path),
                      input_file_path]
     )
+    
+    initial_size = os.path.getsize(input_file_path)
     final_size = os.path.getsize(output_file_path)
-    ratio = 1 - (final_size / initial_size)
-    print("Compression by {0:.0%}.".format(ratio))
-    print("Final file size is {0:.1f}MB".format(final_size / 1000000))
-    print("Done.")
 
+    # Check if compressing was resourceful
+    if final_size > initial_size:
+        os.remove(output_file_path)
+        print("Compression not sucessfull")
+    # In case no output file is specified, erase original file
+    elif output_file_path == 'temp.pdf':
+        if backup:
+            copyfile(input_file_path, input_file_path.replace(".pdf", "_BACKUP.pdf"))
+        copyfile(output_file_path, input_file_path)
+        os.remove(output_file_path)
+
+        ratio = 1 - (final_size / initial_size)
+        print("Compression by {0:.0%}.".format(ratio))
+        print("Final file size is {0:.1f}MB".format(final_size / 1000000))
+        print("Done.")
+
+def compress_directory(input_dir_path, backup, power=0):
+    
+    # Default File Path
+    output_file_path = "temp.pdf"
+
+    # The extension to search for
+    exten = '.pdf'
+
+    for dirpath, dirnames, files in os.walk(input_dir_path):
+        
+        for name in files:
+            if name.lower().endswith(exten):
+                file_path = os.path.join(dirpath, name)
+                compress(file_path, output_file_path, power)
+        
+        for dirname in dirnames:
+            new_dir_path = os.path.join(dirpath, dirname)
+            compress_directory(new_dir_path, backup, power)
 
 def main():
     parser = argparse.ArgumentParser(
@@ -80,22 +111,24 @@ def main():
     if not args.out:
         args.out = 'temp.pdf'
 
-    # Run
-    compress(args.input, args.out, power=args.compress)
+    if os.path.isdir(args.input):
+        compress_directory(args.input, args.backup, power=args.compress)
+    elif os.path.isfile(args.input):
+        # Run
+        compress(args.input, args.out, args.backup, power=args.compress)
 
-    # In case no output file is specified, erase original file
-    if args.out == 'temp.pdf':
-        if args.backup:
-            copyfile(args.input, args.input.replace(".pdf", "_BACKUP.pdf"))
-        copyfile(args.out, args.input)
-        os.remove(args.out)
+        # In case we want to open the file after compression
+        if args.open:
+            if args.out == 'temp.pdf' and args.backup:
+                subprocess.call(['open', args.input])
+            else:
+                subprocess.call(['open', args.out])
 
-    # In case we want to open the file after compression
-    if args.open:
-        if args.out == 'temp.pdf' and args.backup:
-            subprocess.call(['open', args.input])
-        else:
-            subprocess.call(['open', args.out])
+    else:
+        print("Error: invalid path for input PDF file")
+        sys.exit(1)
+    
+
 
 if __name__ == '__main__':
     main()
