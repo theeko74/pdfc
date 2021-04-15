@@ -57,13 +57,14 @@ def compress(input_file_path, output_file_path, backup, power=0):
     final_size = os.path.getsize(output_file_path)
 
     # Check if compressing was resourceful
-    if final_size > initial_size:
+    if (final_size > initial_size) or (final_size == initial_size):
         os.remove(output_file_path)
-        print("Compression not sucessfull")
+        print("Skipped")
     # In case no output file is specified, erase original file
     elif output_file_path == 'temp.pdf':
         if backup:
             copyfile(input_file_path, input_file_path.replace(".pdf", "_BACKUP.pdf"))
+        os.remove(input_file_path)
         copyfile(output_file_path, input_file_path)
         os.remove(output_file_path)
 
@@ -75,7 +76,7 @@ def compress(input_file_path, output_file_path, backup, power=0):
 def compress_directory(input_dir_path, backup, power=0):
     
     # Default File Path
-    output_file_path = "temp.pdf"
+    output_file_path = os.path.join(input_dir_path, "temp.pdf")
 
     # The extension to search for
     exten = '.pdf'
@@ -85,7 +86,7 @@ def compress_directory(input_dir_path, backup, power=0):
         for name in files:
             if name.lower().endswith(exten):
                 file_path = os.path.join(dirpath, name)
-                compress(file_path, output_file_path, power)
+                compress(file_path, output_file_path, backup, power)
         
         for dirname in dirnames:
             new_dir_path = os.path.join(dirpath, dirname)
@@ -96,7 +97,7 @@ def main():
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument('input', help='Relative or absolute path of the input PDF file or directory')
+    parser.add_argument('input', help='Relative or absolute path of the input PDF file')
     parser.add_argument('-o', '--out', help='Relative or absolute path of the output PDF file')
     parser.add_argument('-c', '--compress', type=int, help='Compression level from 0 to 4')
     parser.add_argument('-b', '--backup', action='store_true', help="Backup the old PDF file")
@@ -110,6 +111,7 @@ def main():
     # In case no output file is specified, store in temp file
     if not args.out:
         args.out = 'temp.pdf'
+
 
     if os.path.isdir(args.input):
         compress_directory(args.input, args.backup, power=args.compress)
