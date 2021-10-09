@@ -12,7 +12,7 @@ On Windows: install binaries via [official website] (https://www.ghostscript.com
 `ln -s pdf_creator.py pdfc`
 * Add in PATH environment variable
 On MacOSX:
-`echo export=/absolute/path/of/the/folder/script/:$PATH >> ~/.bash_profile`
+`echo 'export PATH="/absolute/path/of/the/folder/script/:$PATH"' >> ~/.bash_profile`
 
 Usage
 -----
@@ -38,4 +38,4 @@ Options
   * 3: ebook - *low quality, 150 dpi images*
   * 4: screen - *screen-view-only quality, 72 dpi images*
 * `-o`or `--out` specifies the output file path. If not specified, input file will be erased.
-* `-b`or `--backup` creates a backup of the original file in case no output is specified to avoid erasing the original file. 
+* `-b`or `--backup` creates a backup of the original file in case no output is specified to avoid erasing the original file.
