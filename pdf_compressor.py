@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# Author: Sylvain Carlioz
-# Author: skjerns
-# 6/03/2017
+# Author: Theeko74
+# Contributor(s): skjerns
+# Oct, 2021
 # MIT license -- free to use as you want, cheers.
 
 """
@@ -67,7 +67,7 @@ def get_ghostscript_path():
         if shutil.which(name):
             return shutil.which(name)
     raise FileNotFoundError(f'No GhostScript executable was found on path ({"/".join(gs_names)})')
-    
+
 
 def main():
     parser = argparse.ArgumentParser(
