@@ -82,18 +82,24 @@ def main():
                         help='Open PDF after compression')
     args = parser.parse_args()
 
+    replace_original = False
+
     # In case no compression level is specified, default is 2 '/ printer'
     if not args.compress:
         args.compress = 2
     # In case no output file is specified, store in temp file
     if not args.out:
         args.out = 'temp.pdf'
+    # In case both input and output files are the same, replace the original at the end
+    if args.input == args.out:
+        args.out = args.out.split(".pdf")[0] + "-compressed.pdf"
+        replace_original = True
 
     # Run
     compress(args.input, args.out, power=args.compress)
 
     # In case no output file is specified, erase original file
-    if args.out == 'temp.pdf':
+    if args.out == 'temp.pdf' or replace_original:
         if args.backup:
             shutil.copyfile(args.input, args.input.replace(".pdf", "_BACKUP.pdf"))
         shutil.copyfile(args.out, args.input)
