@@ -56,9 +56,18 @@ def compress(input_file_path, output_file_path, power=0):
     )
     final_size = os.path.getsize(output_file_path)
     ratio = 1 - (final_size / initial_size)
+    
+    if ratio <= 0:
+        print("Compression doesn't do any good.")
+        if power < 4:
+            print("Maybe try a higher compression level.")
+        print("Reverting.")
+        return False
+    
     print("Compression by {0:.0%}.".format(ratio))
     print("Final file size is {0:.1f}MB".format(final_size / 1000000))
     print("Done.")
+    return True
 
 
 def get_ghostscript_path():
@@ -90,7 +99,9 @@ def main():
         args.out = 'temp.pdf'
 
     # Run
-    compress(args.input, args.out, power=args.compress)
+    if not compress(args.input, args.out, power=args.compress):
+        os.remove(args.out)
+        sys.exit(2)
 
     # In case no output file is specified, erase original file
     if args.out == 'temp.pdf':
