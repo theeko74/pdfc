@@ -37,12 +37,12 @@ def compress(input_file_path, output_file_path, power=0):
     # Basic controls
     # Check if valid path
     if not os.path.isfile(input_file_path):
-        print("Error: invalid path for input PDF file")
+        print("Error: invalid path for input PDF file.", input_file_path)
         sys.exit(1)
 
     # Check if file is a PDF by extension
     if input_file_path.split('.')[-1].lower() != 'pdf':
-        print("Error: input file is not a PDF")
+        print(f"Error: input file is not a PDF.", input_file_path)
         sys.exit(1)
 
     gs = get_ghostscript_path()
@@ -57,7 +57,7 @@ def compress(input_file_path, output_file_path, power=0):
     final_size = os.path.getsize(output_file_path)
     ratio = 1 - (final_size / initial_size)
     print("Compression by {0:.0%}.".format(ratio))
-    print("Final file size is {0:.1f}MB".format(final_size / 1000000))
+    print("Final file size is {0:.5f}MB".format(final_size / 1000000))
     print("Done.")
 
 
@@ -74,12 +74,11 @@ def main():
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument('input', help='Relative or absolute path of the input PDF file')
-    parser.add_argument('-o', '--out', help='Relative or absolute path of the output PDF file')
+    parser.add_argument('input', type=str, help='Relative or absolute path of the input PDF file')
+    parser.add_argument('-o', '--out', type=str, help='Relative or absolute path of the output PDF file')
     parser.add_argument('-c', '--compress', type=int, help='Compression level from 0 to 4')
     parser.add_argument('-b', '--backup', action='store_true', help="Backup the old PDF file")
-    parser.add_argument('--open', action='store_true', default=False,
-                        help='Open PDF after compression')
+    parser.add_argument('--open', action='store_true', default=False, help='Open PDF after compression')
     args = parser.parse_args()
 
     # In case no compression level is specified, default is 2 '/ printer'
