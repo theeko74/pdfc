@@ -8,11 +8,11 @@
 Simple python wrapper script to use ghoscript function to compress PDF files.
 
 Compression levels:
-    0: default
-    1: prepress
-    2: printer
-    3: ebook
-    4: screen
+    0: default - almost identical to /screen, 72 dpi images
+    1: prepress - high quality, color preserving, 300 dpi imgs
+    2: printer - high quality, 300 dpi images
+    3: ebook - low quality, 150 dpi images
+    4: screen - screen-view-only quality, 72 dpi images
 
 Dependency: Ghostscript.
 On MacOSX install via command line `brew install ghostscript`.
