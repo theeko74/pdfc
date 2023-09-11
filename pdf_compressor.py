@@ -36,7 +36,7 @@ def compress(input_file_path, output_file_path, power=0):
         sys.exit(1)
 
     # Check compression level
-    if power < 0 or power > len(quality):
+    if power < 0 or power > len(quality) - 1:
         print("Error: invalid compression level, run pdfc -h for options.", power)
         sys.exit(1)
 
