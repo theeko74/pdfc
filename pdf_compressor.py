@@ -35,6 +35,11 @@ def compress(input_file_path, output_file_path, power=0):
         print("Error: invalid path for input PDF file.", input_file_path)
         sys.exit(1)
 
+    # Check compression level
+    if power < 0 or power > len(quality):
+        print("Error: invalid compression level, run pdfc -h for options.", power)
+        sys.exit(1)
+
     # Check if file is a PDF by extension
     if input_file_path.split('.')[-1].lower() != 'pdf':
         print(f"Error: input file is not a PDF.", input_file_path)
