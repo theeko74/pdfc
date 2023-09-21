@@ -27,7 +27,13 @@ import sys
 
 def compress(input_file_path, output_file_path, power=0):
     """Function to compress PDF via Ghostscript command line interface"""
-    quality = {0: "/default", 1: "/prepress", 2: "/printer", 3: "/ebook", 4: "/screen"}
+    quality = {
+        0: "/default",
+        1: "/prepress",
+        2: "/printer",
+        3: "/ebook",
+        4: "/screen"
+    }
 
     # Basic controls
     # Check if valid path
@@ -79,22 +85,12 @@ def get_ghostscript_path():
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
-    )
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("input", help="Relative or absolute path of the input PDF file")
-    parser.add_argument(
-        "-o", "--out", help="Relative or absolute path of the output PDF file"
-    )
-    parser.add_argument(
-        "-c", "--compress", type=int, help="Compression level from 0 to 4"
-    )
-    parser.add_argument(
-        "-b", "--backup", action="store_true", help="Backup the old PDF file"
-    )
-    parser.add_argument(
-        "--open", action="store_true", default=False, help="Open PDF after compression"
-    )
+    parser.add_argument("-o", "--out", help="Relative or absolute path of the output PDF file")
+    parser.add_argument("-c", "--compress", type=int, help="Compression level from 0 to 4")
+    parser.add_argument("-b", "--backup", action="store_true", help="Backup the old PDF file")
+    parser.add_argument("--open", action="store_true", default=False, help="Open PDF after compression")
     args = parser.parse_args()
 
     # In case no compression level is specified, default is 2 '/ printer'
