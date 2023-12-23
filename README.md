@@ -16,26 +16,8 @@ On MacOSX:
 
 Usage
 -----
-`pdfc [-o output_file_path] [-c number] input_file_path`
+Run gui.py
 
-Ex:
-`pdfc -o out.pdf in.pdf`
-
-Output:
-```
-Compress PDF...
-Compression by 65%.
-Final file size is 1.4MB
-Done.
-```
-
-Options
+Solove the problems
 -------
-* `-c` or `--compress` specifies 5 levels of compression, similar to standard pdf generator level:
-  * 0: default - *almost identical to /screen*
-  * 1: prepress - *high quality, color preserving, 300 dpi imgs*
-  * 2: printer - *high quality, 300 dpi images*
-  * 3: ebook - *low quality, 150 dpi images*
-  * 4: screen - *screen-view-only quality, 72 dpi images*
-* `-o`or `--out` specifies the output file path. If not specified, input file will be erased.
-* `-b`or `--backup` creates a backup of the original file in case no output is specified to avoid erasing the original file.
+If you have problems with Ghostscript, you can try make file with name `path_to_gs.txt` and type path to `gswin32c.exe` on your PC.
