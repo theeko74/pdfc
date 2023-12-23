@@ -80,6 +80,6 @@ def main(input_path, output_path='temp.pdf', remove=False, compress_lvl=2):
 
     
     if remove:
-        os.remove(output_path)
+        os.remove(input_path)
     
     return flag, ratio, size 
