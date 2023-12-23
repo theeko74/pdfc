@@ -1,4 +1,4 @@
-PdfcGUI --  PDF Compressor
+PdfcGUI -  PDF Compressor (with GUI) 
 =======================
 
 Simple python app to compress PDF with GUI.
