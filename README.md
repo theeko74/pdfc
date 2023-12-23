@@ -13,6 +13,7 @@ On Windows: install binaries via [official website] (https://www.ghostscript.com
 * Add in PATH environment variable
 On MacOSX:
 `echo 'export PATH="/absolute/path/of/the/folder/script/:$PATH"' >> ~/.bash_profile`
+* Intsall flet by this comand: `pip install flet`
 
 Usage
 -----
