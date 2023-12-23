@@ -1,7 +1,7 @@
-Pdfc --  PDF Compressor
+PdfcGUI --  PDF Compressor
 =======================
 
-Simple python script to compress PDF.
+Simple python app to compress PDF with GUI.
 
 Installation
 -------------
