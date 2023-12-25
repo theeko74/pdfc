@@ -8,8 +8,6 @@ Installation
 * Install dependency Ghostscript.
 On MacOSX: `brew install ghostscript`
 On Windows: install binaries via [official website] (https://www.ghostscript.com/)
-* Create a symbolic link if you want to run it everywhere in bash
-`ln -s pdf_compressor.py pdfc`
 * Add in PATH environment variable
 On MacOSX:
 `echo 'export PATH="/absolute/path/of/the/folder/script/:$PATH"' >> ~/.bash_profile`
