@@ -1,5 +1,5 @@
 import flet as ft
-from compresser import main as compressor_main
+from compressor import main as compressor_main
 
 input_path = ''
 lvl = 2
