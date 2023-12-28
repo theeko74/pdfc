@@ -64,15 +64,16 @@ def get_ghostscript_path():
             pth = f.readline()
             f.close()
             return True, pth
-        gs_names = ["gs", "gswin32", "gswin64", "gswin32c"]
+        gs_names = ["gs", "gswin32c", "gswin64c", "gswin32", "gswin64"]
         for name in gs_names:
             if shutil.which(name):
                 return True, shutil.which(name)
         raise FileNotFoundError(
             f"No GhostScript executable was found on path ({'/'.join(gs_names)})"
         )
-    except:
-        return False, 'Error in Ghostscript connection'
+    except Exception as e:
+        print(e)
+        return False, 'Connection to Ghostscript has been failed. If you don\'t have it, download it from official site: https://ghostscript.com/releases/gsdnld.html'
 
 
 def main(input_path, output_path='temp.pdf', remove=False, compress_lvl=2):

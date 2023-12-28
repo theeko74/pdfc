@@ -6,7 +6,7 @@ lvl = 2
 
 def main(page: ft.Page):
     page.window_width = 500        # window's width is 200 px
-    page.window_height = 350       # window's height is 200 px
+    page.window_height = 360       # window's height is 200 px
     page.update()
     
     def radiogroup_changed(e):
