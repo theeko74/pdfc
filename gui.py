@@ -5,6 +5,7 @@ input_path = ''
 lvl = 2
 
 def main(page: ft.Page):
+    page.title = "PDF Compressor"
     page.window_width = 500        # window's width is 200 px
     page.window_height = 360       # window's height is 200 px
     page.update()
@@ -20,7 +21,6 @@ def main(page: ft.Page):
         selected_files.update()
     
     def button_clicked(e):
-        boxes = [c.value for c in chechboxes]
         outpth = out_path.value
         if not outpth:
             outpth = 'compressed.pdf'
