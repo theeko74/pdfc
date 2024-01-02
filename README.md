@@ -23,3 +23,12 @@ Run gui.py
 Solve the problems
 -------
 If you have problems with Ghostscript, you can try to make a file with name `path_to_gs.txt` and type path to `gswin32c.exe` on your PC.
+
+Features
+-------
+- [ ] Another compressors
+- [ ] Build EXE
+- [ ] Multi-select (files)
+- [ ] Improve UX&UI (add animations and PDF viewer, make adaptive interface)
+- [ ] Convenient and accurate selection of compression accuracy
+- [ ] Progress bar 
