@@ -3,6 +3,9 @@ PdfcGUI -  PDF Compressor (with GUI)
 
 Simple Python app to compress PDF with GUI.
 
+
+![image](https://github.com/zaborshikov/pdfc_with_gui/assets/31626137/5b0db79f-cac5-4cc1-bf99-d6710e4d9297)
+
 Installation
 -------------
 * Install Ghostscript dependency.
