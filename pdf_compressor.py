@@ -60,6 +60,8 @@ def compress(input_file_path, output_file_path, power=0):
             "-sDEVICE=pdfwrite",
             "-dCompatibilityLevel=1.7",
             "-dPDFSETTINGS={}".format(quality[power]),
+						"-dEmbedAllFonts=true",
+						"-dSubsetFonts=true",
             "-dNOPAUSE",
             "-dQUIET",
             "-dBATCH",
