@@ -75,7 +75,7 @@ def compress(input_file_path, output_file_path, power=0):
 
 
 def get_ghostscript_path():
-    gs_names = ["gs", "gswin32", "gswin64"]
+    gs_names = ["gs", "gswin32c", "gswin64c"]
     for name in gs_names:
         if shutil.which(name):
             return shutil.which(name)
