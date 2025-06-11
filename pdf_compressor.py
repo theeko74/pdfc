@@ -58,8 +58,10 @@ def compress(input_file_path, output_file_path, power=0):
         [
             gs,
             "-sDEVICE=pdfwrite",
-            "-dCompatibilityLevel=1.4",
+            "-dCompatibilityLevel=1.7",
             "-dPDFSETTINGS={}".format(quality[power]),
+						"-dEmbedAllFonts=true",
+						"-dSubsetFonts=true",
             "-dNOPAUSE",
             "-dQUIET",
             "-dBATCH",
